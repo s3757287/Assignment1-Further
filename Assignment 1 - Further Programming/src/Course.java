@@ -19,6 +19,12 @@ public class Course {
         return courseID;
     }
 
+    public void getAllCourse(){
+        for (Course course : courseArray){
+            System.out.println(course.toString());
+        }
+    }
+
     @Override
     public String toString(){
         return "Course ID: " + courseID + " " +

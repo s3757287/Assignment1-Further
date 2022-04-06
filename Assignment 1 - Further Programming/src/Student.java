@@ -19,6 +19,12 @@ public class Student {
         return ID;
     }
 
+    public void getAllStudent(){
+        for (Student student : studentArray){
+            System.out.println(student.toString());
+        }
+    }
+
     @Override
     public String toString(){
         return "Student ID: " + ID + " " +

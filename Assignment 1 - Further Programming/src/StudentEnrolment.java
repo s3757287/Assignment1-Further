@@ -1,8 +1,4 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
-
-public class StudentEnrolment{
+public class StudentEnrolment implements StudentEnrolmentManager{
     private String student;
     private String course;
     private String semester;
@@ -45,6 +41,40 @@ public class StudentEnrolment{
         return "Student: " + student +
                 " | Course: " + course +
                 " | Semester: " + semester;
+    }
+
+
+    @Override
+    public void addEnrolment(StudentEnrolment newEnrolment) {
+        studentEnrolment.add(newEnrolment);
+        System.out.println("Enrol Success " + newEnrolment.toString());
+    }
+
+    @Override
+    public void updateAdd(StudentEnrolment updateAdd) {
+        studentEnrolment.add(updateAdd);
+    }
+
+    @Override
+    public void updateDelete(StudentEnrolment updateDelete) {
+        studentEnrolment.remove(updateDelete);
+    }
+
+    @Override
+    public void deleteEnrolment(StudentEnrolment delete) {
+        studentEnrolment.remove(delete);
+    }
+
+    @Override
+    public void getOne(int One) {
+        System.out.println(studentEnrolment.get(One).toString());
+    }
+
+    @Override
+    public void getAll() {
+        for(int i = 0; i < StudentEnrolmentManager.studentEnrolment.size(); i++){
+            System.out.println(StudentEnrolmentManager.studentEnrolment.get(i).toString());
+        }
     }
 }
 
