@@ -71,7 +71,8 @@ public class Main {
             System.out.println("File not found\n");
         }
         Scanner scanner1 = new Scanner(System.in);
-        while (!Objects.equals(null, "Quit")) {
+        String quitApp = null;
+        while (!Objects.equals(quitApp, "Quit")) {
             System.out.println("""
                     Welcome
                     What would you like to do?
@@ -652,36 +653,15 @@ public class Main {
                                         2) All Courses""");
                                 String option2 = scanner.next();
                                 switch (option2) {
-                                    case "1" -> {
-                                        student.getAllStudent();
-                                        System.out.println("""
-                                                Save list to file?
-                                                1) Yes
-                                                2) No
-                                                """);
-                                        String option3 = scanner.next();
-                                        if (Objects.equals(option3, "1")) {
-                                            try {
-                                                FileWriter saveFile = new FileWriter(file);
-
-                                                for (int i = 0; i < StudentEnrolmentManager.studentEnrolment.size(); i++) {
-                                                    saveFile.write(StudentEnrolmentManager.studentEnrolment.get(i).toString() + "\n");
-                                                }
-
-                                                saveFile.close();
-                                            } catch (IOException e) {
-                                                System.out.println("Error");
-                                                e.printStackTrace();
-                                            }
-
-                                        }
-                                    }
+                                    case "1" -> student.getAllStudent();
                                     case "2" -> course.getAllCourse();
                                 }
                             }
+                            case "7" -> exitPrint = "Exit";
                         }
                     }
                 }
+                case "5" -> quitApp = "Quit";
             }
         }
     }
