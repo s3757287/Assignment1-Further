@@ -19,10 +19,6 @@ public class Course {
         return courseID;
     }
 
-    public void setCourseID(String courseID){
-        this.courseID = courseID;
-    }
-
     @Override
     public String toString(){
         return "Course ID: " + courseID + " " +

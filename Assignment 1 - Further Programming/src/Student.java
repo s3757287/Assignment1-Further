@@ -18,17 +18,6 @@ public class Student {
     public String getID(){
         return ID;
     }
-    public void setID(){
-        this.ID = ID;
-    }
-
-    public void setName(String name){
-        this.name = name;
-    }
-
-    public void setBirthdate(String birthdate){
-        this.birthdate = birthdate;
-    }
 
     @Override
     public String toString(){
