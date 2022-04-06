@@ -11,13 +11,14 @@ public class Main {
         Course course = new Course();
         Scanner scanner = new Scanner(System.in);
         StudentEnrolment studentEnrolment = new StudentEnrolment();
+        ArrayList<String> semester = new ArrayList<>(Arrays.asList("2020B","2020C","2021A"));
         boolean loop;
 
         try {
             File sourceDefault = new File("default.csv");
             Scanner fileRead = new Scanner(sourceDefault);
             System.out.println("Data: ");
-            String info = null;
+            String info;
             while (fileRead.hasNextLine()) {
                 info = fileRead.nextLine();
                 System.out.println(info);
@@ -67,17 +68,18 @@ public class Main {
             e.printStackTrace();
             System.out.println("File not found\n");
         }
-
+        System.out.println(student.studentArray);
         Scanner scanner1 = new Scanner(System.in);
         while (!Objects.equals(null,"Quit")){
-            System.out.println("Welcome\n" +
-                    "What would you like to do?\n" +
-                    "~~~~~~~~~~~~~~~~~~~\n" +
-                    "1) Add Enrolment\n" +
-                    "2) Update Enrolment\n" +
-                    "3) Withdraw\n" +
-                    "4) Print Data\n" +
-                    "5) Quit");
+            System.out.println("""
+                    Welcome
+                    What would you like to do?
+                    ~~~~~~~~~~~~~~~~~~~
+                    1) Add Enrolment
+                    2) Update Enrolment
+                    3) Withdraw
+                    4) Print Data
+                    5) Quit""");
             String option = "";
             if (scanner1.hasNext()){
                 option = scanner1.next();
@@ -90,13 +92,14 @@ public class Main {
                                 "Enter Student ID: ");
                         String studentID = scanner.next();
                         String valid = "";
-                        for (int i = 0; 1 < student.studentArray.size(); i++){
-                            if (studentID.equalsIgnoreCase(student.studentArray.get(i).getID())){
-                                valid = "Valid";
+                        for (int i = 0; i < student.studentArray.size(); i++) {
+                            if (studentID.equalsIgnoreCase(student.studentArray.get(i).getID())) {
+                                System.out.println("Continue~~");
+                                valid = "valid";
                                 break;
                             }
                         }
-                        if(!valid.equalsIgnoreCase("Valid")){
+                        if (!valid.equalsIgnoreCase("valid")) {
                             System.out.println("Invalid ID");
                             continue;
                         }
@@ -107,6 +110,7 @@ public class Main {
                             valid = "";
                             for (int i = 0; i < course.courseArray.size(); i++){
                                 if (studentID.equalsIgnoreCase(course.courseArray.get(i).getCourseID())){
+                                    System.out.println("Continue~~");
                                     valid = "Valid";
                                     break;
                                 }
@@ -120,9 +124,9 @@ public class Main {
                                 System.out.println("Semester: ");
                                 studentID = scanner.next();
                                 valid = "";
-                                ArrayList<String> semester = new ArrayList<>(Arrays.asList("2020B","2020C","2021A"));
                                 for (String s : semester){
                                     if (!studentID.equalsIgnoreCase(s)){
+                                        System.out.println("Continue~~");
                                         valid = "Valid";
                                         break;
                                     }
@@ -135,7 +139,74 @@ public class Main {
                                 String end = "";
                                 for (int i = 0; i < StudentEnrolmentManager.studentEnrolment.size(); i++){
                                     if (enrolStudent.equalsIgnoreCase(StudentEnrolmentManager.studentEnrolment.get(i).getStudent()) &&
-                                    enrolCourse.equalsIgnoreCase(StudentEnrolmentManager))
+                                    enrolCourse.equalsIgnoreCase(StudentEnrolmentManager.studentEnrolment.get(i).getCourse()) &&
+                                    studentID.equalsIgnoreCase(StudentEnrolmentManager.studentEnrolment.get(i).getStudent())){
+                                        exist = "Exist";
+                                    }
+                                    if (exist.equalsIgnoreCase("Exist")){
+                                        System.out.println("Already Enrolled\n" +
+                                                "Please choose another Semester / Course");
+                                        break;
+                                    }
+                                }
+                                if (!exist.equalsIgnoreCase("Exist")){
+                                    StudentEnrolment studentEnrolment1 = new StudentEnrolment(enrolStudent, enrolCourse, studentID);
+                                    studentEnrolment.addEnrolment(studentEnrolment1);
+                                    end = "End";
+                                    System.out.println(StudentEnrolmentManager.studentEnrolment.size());
+                                }
+                                if (!end.equalsIgnoreCase("End")){
+                                    continue;
+                                }
+                                loop = false;
+                            }
+                        }
+                    }
+                }
+                case "2" -> {
+                    loop = true;
+                    System.out.println("Updating Enrolment\n" +
+                            "~~~~");
+                    while (loop){
+                        System.out.println("Enter Student ID: ");
+                        String studentID = scanner.next();
+                        String valid = "";
+                        for (int i = 0; i < student.studentArray.size(); i++){
+                            if (studentID.equalsIgnoreCase(student.studentArray.get(i).getID())){
+                                System.out.println("Continue~~");
+                                valid = "Valid";
+                                break;
+                            }
+                        }
+                        if (!valid.equalsIgnoreCase("Valid")){
+                            System.out.println("Invalid Id");
+                            continue;
+                        }
+                        String enrolStudent = studentID;
+                        while (loop){
+                            System.out.println("Semester");
+                            studentID = scanner.next();
+                            valid = "";
+                            for (String s : semester){
+                                if (!studentID.equalsIgnoreCase(s)){
+                                    System.out.println("Continue~~");
+                                    valid = "Valid";
+                                    break;
+                                }
+                            }
+                            if (!valid.equalsIgnoreCase("Valid")){
+                                System.out.println("Invalid Semester");
+                                continue;
+                            }
+                            String exist = "";
+                            String enrolSem = studentID;
+                            ArrayList<String> enrolCourse = new ArrayList<>();
+                            for (int i = 0; i < StudentEnrolmentManager.studentEnrolment.size(); i++){
+                                if (enrolStudent.equalsIgnoreCase(StudentEnrolmentManager.studentEnrolment.get(i).getStudent()) &&
+                                        enrolSem.equalsIgnoreCase(StudentEnrolmentManager.studentEnrolment.get(i).getSemester())){
+                                    System.out.println(StudentEnrolmentManager.studentEnrolment.get(i).getCourse());
+                                    exist = "exist";
+                                    enrolCourse.add(StudentEnrolmentManager.studentEnrolment.get(i).getCourse());
                                 }
                             }
                         }
